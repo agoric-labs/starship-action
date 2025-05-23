@@ -130,6 +130,7 @@ runs:
         starship setup \
           --config ${{ inputs.config }} \
           --namespace ${{ steps.set-namespace.outputs.namespace }} \
+          --repoUrl ${{ inputs.repo }} \
           --chart ${{ inputs.chart }}
       shell: bash
 
@@ -142,6 +143,7 @@ runs:
         starship start \
           --config ${{ inputs.config }} \
           --namespace ${{ steps.set-namespace.outputs.namespace }} \
+          --repoUrl ${{ inputs.repo }} \
           --chart ${{ inputs.chart }} \
           --timeout ${{ inputs.timeout }}
       shell: bash
@@ -174,6 +176,7 @@ runs:
           --config ${{ inputs.config }} \
           --name ${{ inputs.name }} \
           --namespace ${{ steps.set-namespace.outputs.namespace }} \
+          --repoUrl ${{ inputs.repo }} \
           --chart ${{ inputs.chart }} \
           --timeout ${{ inputs.timeout }}
       shell: bash
@@ -189,6 +192,7 @@ runs:
           --config ${{ inputs.config }} \
           --name ${{ inputs.name }} \
           --namespace ${{ steps.set-namespace.outputs.namespace }} \
+          --repoUrl ${{ inputs.repo }} \
           --chart ${{ inputs.chart }} \
           --timeout ${{ inputs.timeout }}
       shell: bash
