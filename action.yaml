@@ -140,7 +140,6 @@ runs:
 
     - name: Helm install
       id: helm-install-1
-      continue-on-error: true
       run: |
         starship stop --config ${{ inputs.config }} --namespace ${{ steps.set-namespace.outputs.namespace }} || true
         sleep 5
@@ -167,37 +166,4 @@ runs:
       env:
         VALUES_FILE: ${{ inputs.config }}
         NAMESPACE: ${{ steps.set-namespace.outputs.namespace }}
-      shell: bash
-
-    - name: Helm install again
-      id: helm-install-2
-      if: steps.helm-install-1.outcome == 'failure'
-      continue-on-error: true
-      run: |
-        starship stop --config ${{ inputs.config }} --namespace ${{ steps.set-namespace.outputs.namespace }} || true
-        sleep 5
-        kubectl get pods --namespace ${{ steps.set-namespace.outputs.namespace }}
-        starship start \
-          --config ${{ inputs.config }} \
-          --name ${{ inputs.name }} \
-          --namespace ${{ steps.set-namespace.outputs.namespace }} \
-          --repoUrl ${{ inputs.repo }} \
-          --chart ${{ inputs.chart }} \
-          --timeout ${{ inputs.timeout }}
-      shell: bash
-
-    - name: Helm install again, 3rd time is the charm
-      id: helm-install-3
-      if: steps.helm-install-2.outcome == 'failure'
-      run: |
-        starship stop --config ${{ inputs.config }} --namespace ${{ steps.set-namespace.outputs.namespace }} || true
-        sleep 5
-        kubectl get pods --namespace ${{ steps.set-namespace.outputs.namespace }}
-        starship start \
-          --config ${{ inputs.config }} \
-          --name ${{ inputs.name }} \
-          --namespace ${{ steps.set-namespace.outputs.namespace }} \
-          --repoUrl ${{ inputs.repo }} \
-          --chart ${{ inputs.chart }} \
-          --timeout ${{ inputs.timeout }}
       shell: bash
